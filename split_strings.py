@@ -17,8 +17,8 @@ def solution(s):
 #     for i in range(0, len(s), 2):
 #         result.append(s[i:i+2])
 #     return result
-# this is the more efficient solution by using for range loop
-        
+# This is the more efficient solution by using for range loop.
+# Just like a JS for loop : for(let i = 0, i < s.length, i++)
 
 solution("zaqxswcde") #['za', 'qx', 'sw', 'cd', 'e_']
 solution("ABC")#['AB', 'C_']
