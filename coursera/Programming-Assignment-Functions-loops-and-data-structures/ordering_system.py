@@ -46,7 +46,7 @@ def calculate_tax(subtotal):
     """
     print('Calculating tax from subtotal...')
     ### WRITE SOLUTION HERE
-    return round(int(subtotal)*1.15,2)
+    return round(subtotal*1.15,2)
     # raise NotImplementedError()
 
 def summarize_order(order):
@@ -69,10 +69,12 @@ def summarize_order(order):
     print_order(order)
     ### WRITE SOLUTION HERE
     items=[]
-    subtotal = calculate_tax(calculate_subtotal(order))
+    subtotal = calculate_subtotal(order)
+    total=calculate_tax(subtotal)
+    print(total)
     for item in order:
         items.append(item["name"])
-    return items,subtotal
+    return items,total
     raise NotImplementedError()
 
 # This function is provided for you, and will print out the items in an order
