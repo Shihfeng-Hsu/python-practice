@@ -1,9 +1,43 @@
 def recoverSecret(triplets):
-    a=[]
+    arr = []
+    index=0
     for i in triplets:
-        a = a+i
-    print(a)
+        if len(arr) == 0 :
+          arr = arr+i 
+        elif len(arr) !=0:
+          for index in range(0,len(i)):
+            item=i[index]
+            if item not in arr:
+              arr.insert(0,item)
+            if item in arr:
+              if index != 0 and arr.index(i[index-1]) > arr.index(item):
+                arr.remove(item)
+                arr.insert(arr.index(i[index-1])+1,item)
+                
+                
 
+    print("".join(arr))
+
+    return "".join(arr)
+
+
+'''
+Other solution
+
+def recoverSecret(triplets):
+  r = list(set([i for l in triplets for i in l]))
+  for l in triplets:
+    fix(r, l[1], l[2])
+    fix(r, l[0], l[1])
+  return ''.join(r)
+  
+def fix(l, a, b):
+   """let l.index(a) < l.index(b)"""
+   if l.index(a) > l.index(b):
+       l.remove(a)
+       l.insert(l.index(b), a)
+
+'''
 
 
 
