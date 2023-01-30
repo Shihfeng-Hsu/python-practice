@@ -62,6 +62,7 @@ class Swiss(Bank):
         self.bal =  self.bal - amount
         print(f"Withdrawn amount: {amount}")
         print(f"New balance: {self.bal}")
+        return self.bal
 
 # Driver Code
 def main():
