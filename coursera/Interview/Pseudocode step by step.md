@@ -29,26 +29,49 @@ Write a program in a given language that iterates over numbers 1 to 40. Print ou
 
 You might start by representing each requirement as a line of pseudocode:
 
+//
+
+FOR number 1 to 40
+IF multiple of 3
+output(Fizz)
+IF multiple of 5
+output(Bizz)
+IF multiple of 3 and 5
+output(FizzBuzz)
+ELSE
+output(number)
+
+//
+
 Example of pseudocode: For, If, If, If, Else
 The key to this assignment is knowing how to order the conditional statement. Line 1 indicates that there will be an iteration. In this instance, an indent demonstrates that the subsequent eight lines of code are part of this iteration. Alternatively, the following block could have been added:
 
 Star for loop, end for loop
 It is clear that there are three conditional statements and then a catchall else clause. It is possible to visualize the code's outcome by looking at the pseudocode. The else statement will work fine, it is only to print out non-multiples of 3 and 5, but there is an issue with how the code will handle the number 15, printing an instance of Fizz, Buzz and FizzBuzz.
 
+///
+
+START FOR LOOP
+
+#code
+
+END FOR LOOP
+
+///
+
 For, If, Else If, Else If, Else
 Examining the question's first instance as pseudocode enables you to spot where the issues might be. Visually, it is far easier to see how the conditional statements should be organized. First, the crux of the question is in what order the conditional statements should be placed and to use exclusionary conditional statements. In the above instance else if was used in place of just if. Second, the ordering of the statements has an important impact. You can try the output of above by running the code found below.
 
-123456789
-for number in range(40):
-if number % 3 == 0 and number % 5 == 0:
-print("FizzBuzz")
-elif number % 3 == 0:
-print("Fizz")
-elif number % 5 == 0:
-print("buzz")
-else:
-print(number)
-Reset
+            for number in range(40):
+            if number % 3 == 0 and number % 5 == 0:
+            print("FizzBuzz")
+            elif number % 3 == 0:
+            print("Fizz")
+            elif number % 5 == 0:
+            print("buzz")
+            else:
+            print(number)
+            Reset
 
 Conclusion
 In this reading, you learned about why you should use pseudocode, when it should be used, and how to write pseudocode.
