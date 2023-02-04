@@ -31,7 +31,7 @@ def get_pins(observed):
         if i == 0:
             pair_array = selected_fields[0]
         else:
-            pair_array= pair_handle(pair_array,selected_fields[i])
+            pair_array = pair_handle(pair_array,selected_fields[i])
 
 
     print(pair_array)
