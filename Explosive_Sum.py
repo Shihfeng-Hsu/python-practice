@@ -1,3 +1,6 @@
+'''
+This solution spent too many times, it make the Codewar tester's execution timed out.
+
 def exp_sum(n):
 
     def partition(n):
@@ -10,9 +13,45 @@ def exp_sum(n):
     answer=partition(n)
     print(len(answer))
     return len(answer)
-'''
+
 https://stackoverflow.com/questions/10035752/elegant-python-code-for-integer-partitioning
 '''
+
+'''
+This solution spent too many times, it make the Codewar tester's execution timed out.
+def exp_sum(n):
+    counter = 0
+    def partitions(n):
+        if n == 0:
+            yield []
+            return
+        for p in partitions(n-1):
+            yield [1] + p
+            if p and (len(p) < 2 or p[1] > p[0]):
+                yield [p[0] + 1] + p[1:]
+    partitions_map= partitions(n)
+    
+    for i in partitions_map:
+        counter += 1
+    print(counter)
+    return counter
+
+
+    https://code.activestate.com/recipes/218332-generator-for-integer-partitions/
+    '''
+
+def exp_sum(n):
+    if n < 0:
+        return 0
+    dp = [1]+[0]*n
+    for num in range(1,n+1):
+        for i in range(num,n+1):
+            dp[i] += dp[i-num]
+    return dp[-1]
+
+    '''
+    https://www.twblogs.net/a/5d75719fbd9eee5327ff930f
+    '''
 
 exp_sum(1)#, 1)
 exp_sum(2)#, 2)
