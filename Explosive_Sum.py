@@ -44,8 +44,10 @@ def exp_sum(n):
     if n < 0:
         return 0
     dp = [1]+[0]*n
+    print(dp)
     for num in range(1,n+1):
         for i in range(num,n+1):
+            print(dp[i],dp[i-num])
             dp[i] += dp[i-num]
     return dp[-1]
 
