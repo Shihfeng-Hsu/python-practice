@@ -1,136 +1,331 @@
 def parse_molecule (formula):
-    #(C5H5)Fe(CO)2CH3
-    #Pd[P(C6H5)3]4
+    
+    # open the braces:
     string = formula
-    braces_mark=[]
- # step1
-    for i in range (0, len(formula)):
-        if formula[i] == "(":
-            print(1)
-            braces_mark.append([i])
-        if formula[i] == ")":
-            num=0
-            p = i
-            braces_mark[len(braces_mark)-1].append(i)
-            if i < len(formula)-2:
-                while formula[p+1].isdigit():
-                    num += int(formula[p+1])
-                    if i < len(formula)-1:
-                        p += 1
-            braces_mark[len(braces_mark)-1].append(num)
-    # print(braces_mark)
+    braces = str.maketrans("()","  ")
+    brace_off_arr=string.translate(braces).split(" ")
+   
+    if len(brace_off_arr) > 1:
+        times = ""
+        for i in range(1, len(brace_off_arr),2):
+            for j in range(0, len(brace_off_arr[i+1])):
+                if brace_off_arr[i+1][j].isdigit():
+                    times += brace_off_arr[i+1][j]
+                elif brace_off_arr[i+1][j].isdigit() == False and times == "":
+                    times= 1
+                    break
+                elif brace_off_arr[i+1][j].isdigit() == False:
+                    break
+            
+            brace_off_arr[i] = brace_off_arr[i]*int(times)
+            brace_off_arr[i+1] = brace_off_arr[i+1].replace(str(times),"", 1)
+            times = ""
+                
+        string ="".join(brace_off_arr) 
 
-    if len(braces_mark) != 0:
-        for i in range (0, len(braces_mark)):
-            target=string[braces_mark[i][0]+1:braces_mark[i][1]][::-1]
-            transform_string=""
-            print(target)
-            useFlag=0
-            for j in range (0, len(target)):
-                if target[j].isdigit():
-                    transform_string += target[j+1] + str(int(target[j])*int(braces_mark[i][2]))
-                    useFlag = 1
-                elif useFlag == 1:
-                    useFlag = 0
-                elif useFlag == 0:
-                    print(target[j])
-                    transform_string += target[j]
-     
-            string = string[0:braces_mark[i][0]] + transform_string + string[braces_mark[i][1]+1:]
-            braces_mark=[]
+    # open the Square_brackets:
+    Square_brackets= str.maketrans("[]","  ")
+    brace_off_arr=string.translate(Square_brackets).split(" ")
 
-#step2
-    for i in range (0, len(string)):
-        if string[i] == "[":
-            print(1)
-            braces_mark.append([i])
-        if string[i] == "]":
-            num=0
-            p = i
-            braces_mark[len(braces_mark)-1].append(i)
-            if p+1 != len(string):
-                while string[p+1].isdigit():
-                    print(string)
-                    num += int(string[p+1])
-                    p += 1
-                    if p+2 != len(string):
-                     break
-                        
-            braces_mark[len(braces_mark)-1].append(num)
-    # print(braces_mark)
+    if len(brace_off_arr) > 1:
+        times = ""
+        for i in range(1, len(brace_off_arr),2):
+            for j in range(0, len(brace_off_arr[i+1])):
+                if brace_off_arr[i+1][j].isdigit():
+                    times += brace_off_arr[i+1][j]
+                elif brace_off_arr[i+1][j].isdigit() == False and times == "":
+                    times= 1
+                    break
+                elif brace_off_arr[i+1][j].isdigit() == False:
+                    break
+            
+            brace_off_arr[i] = brace_off_arr[i]*int(times)
+            brace_off_arr[i+1] = brace_off_arr[i+1].replace(str(times),"", 1)
+            times = ""
+                
+        string ="".join(brace_off_arr) 
 
-    if len(braces_mark) != 0:
-        for i in range (0, len(braces_mark)):
-            target=string[braces_mark[i][0]+1:braces_mark[i][1]][::-1]
-            transform_string=""
-            print(target)
-            useFlag=0
-            for j in range (0, len(target)):
-                if target[j].isdigit():
-                    transform_string += target[j+1] + str(int(target[j])*int(braces_mark[i][2]))
-                    useFlag = 1
-                elif useFlag == 1:
-                    useFlag = 0
-                elif useFlag == 0:
-                    print(target[j])
-                    transform_string += target[j] + str(braces_mark[i][2])
-     
-            string = string[0:braces_mark[i][0]] + transform_string 
-            braces_mark=[]
+    
+# open the curly braces: 
 
+    Square_brackets= str.maketrans("}{","  ")
+    brace_off_arr=string.translate(Square_brackets).split(" ")
 
+    if len(brace_off_arr) > 1:
+        times = ""
+        for i in range(1, len(brace_off_arr),2):
+            for j in range(0, len(brace_off_arr[i+1])):
+                if brace_off_arr[i+1][j].isdigit():
+                    times += brace_off_arr[i+1][j]
+                elif brace_off_arr[i+1][j].isdigit() == False and times == "":
+                    times= 1
+                    break
+                elif brace_off_arr[i+1][j].isdigit() == False:
+                    break
+            
+            brace_off_arr[i] = brace_off_arr[i]*int(times)
+            brace_off_arr[i+1] = brace_off_arr[i+1].replace(str(times),"", 1)
+            times = ""
+                
+        string ="".join(brace_off_arr) 
+    
 
-    print(string)
 
     atoms={}
     cur=""
-    count = "0"
+    count = ""
     for i in range(0, len(string)):
-        chr = string[i]
-        print(chr)
-        if i == len(string)-1 and chr.isupper()  :
-            cur = chr
-            if cur in atoms :
-                    atoms[cur] = atoms[cur] + int(count)|1
-                    cur = chr
-                    count = ""
-            else:
-                    atoms[cur] = int(count)|1
-                    cur = chr
-                    count = ""
-                    
-        if chr.isupper():
-            if  cur == "" :
-                cur = chr
-            else:
+
+        if string[i].isupper():
+            if i == len(string)-1:
                 if cur in atoms :
-                    atoms[cur] = atoms[cur] + int(count)|1
-                    cur = chr
-                    count = ""
+                    atoms[cur] = atoms[cur] + int(count or 1)
                 else:
-                    atoms[cur] = int(count)|1
-                    cur = chr
-                    count = ""
-        elif chr.islower():
-            cur += chr
-            # if cur in atoms :
-            #     atoms[cur] += count
-            #     cur = ""
-            # else:
-            #     atoms[cur] = count
-            #     cur = ""
-        elif chr.isdigit():
-            count += chr
-            if i == len(string)-1 :
+                    atoms[cur] = int(count or 1)
+                    cur = string[i]
+                if string[i] in atoms :
+                    atoms[string[i]] = atoms[string[i]] + 1
+                else:
+                    atoms[string[i]] =  1
+            else:
+                if i == 0 :
+                    cur = string[i]
+                else:
+                    if cur in atoms :
+                        atoms[cur] = atoms[cur] + int(count or 1)
+                    else:
+                        atoms[cur] = int(count or 1)
+                    cur = string[i]
+            count = ""
+        if string[i].islower():
+            cur = cur + string[i]
+        if string[i].isdigit():
+            count = count + string[i]
+            if i == len(string)-1:
                 if cur in atoms :
-                    atoms[cur] = atoms[cur] + int(chr)
+                    atoms[cur] = atoms[cur] + int(count or 1)
                 else:
-                    atoms[cur] = int(chr)
-     
+                    atoms[cur] = int(count or 1)
+                    cur = string[i]
+        
 
     print(atoms)
+    return atoms
+
+
+'''
+# Other solution 
+# However, it imported a built-in module called "re", which isn't imported by my solution.
+# It was my solution that solved the problem without any modules.
+
+from collections import Counter
+import re
+
+COMPONENT_RE = (
+    r'('
+        r'[A-Z][a-z]?'
+        r'|'
+        r'\([^(]+\)'
+        r'|'
+        r'\[[^[]+\]'
+        r'|'
+        r'\{[^}]+\}'
+    r')'
+    r'(\d*)'
+)
+
+
+def parse_molecule(formula):
+    counts = Counter()
+    for element, count in re.findall(COMPONENT_RE, formula):
+        count = int(count) if count else 1
+        if element[0] in '([{':
+            for k, v in parse_molecule(element[1:-1]).items():
+                counts[k] += count * v
+        else:
+            counts[element] += count
+    return counts
+
+'''
+
+
+parse_molecule("H2O")#, {'H': 2, 'O' : 1}, "Should parse water")
+parse_molecule("Mg(OH)2")#, {'Mg': 1, 'O' : 2, 'H': 2}, "Should parse magnesium hydroxide: Mg(OH)2")
+parse_molecule("K4[ON(SO3)2]2")#, {'K': 4,  'O': 14,  'N': 2,  'S': 4}, "Should parse Fremy's salt: K4[ON(SO3)2]2")
+
+parse_molecule("(C5H5)Fe(CO)2CH3")#{'C': 8, 'H': 8, 'Fe': 1, 'O': 2}
+parse_molecule("C6H12O6")#{'C': 6, 'H': 12, 'O': 6}
+parse_molecule("Pd[P(C6H5)3]4")
+
+'''
+For a given chemical formula represented by a string, count the number of atoms of each element contained in the molecule and return an object (associative array in PHP, Dictionary<string, int> in C#, Map<String,Integer> in Java).
+
+For example:
+
+water = 'H2O'
+parse_molecule(water)                 # return {H: 2, O: 1}
+
+magnesium_hydroxide = 'Mg(OH)2'
+parse_molecule(magnesium_hydroxide)   # return {Mg: 1, O: 2, H: 2}
+
+var fremy_salt = 'K4[ON(SO3)2]2'
+parse_molecule(fremySalt)             # return {K: 4, O: 14, N: 2, S: 4}
+As you can see, some formulas have brackets in them. The index outside the brackets tells you that you have to multiply count of each atom inside the bracket on this index. For example, in Fe(NO3)2 you have one iron atom, two nitrogen atoms and six oxygen atoms.
+
+Note that brackets may be round, square or curly and can also be nested. Index after the braces is optional.
+'''
+
+
+
+################################################################
+# fail solutions .....
+
+# def parse_molecule (formula):
+#     #(C5H5)Fe(CO)2CH3
+#     #Pd[P(C6H5)3]4
+#     string = formula
+#     braces_mark=[]
+#     print(formula,"input"),
+#  # step1
+#     for i in range (0, len(formula)):
+#         if formula[i] == "(":
+#             braces_mark.append([i])
+#         if formula[i] == ")":
+#             num=""
+#             p = i
+#             braces_mark[len(braces_mark)-1].append(i)
+#             for p in range(i+1, len(formula)):
+#                 print(formula[p],"p")
+#                 if formula[p].isdigit():
+#                     num += formula[p]
+#                 else:
+#                     if num == "":
+#                         num = "1"
+#                     break
+#             braces_mark[len(braces_mark)-1].append(int(num))
+#     print(braces_mark,"braces_mark")
+
+#     if len(braces_mark) != 0:
+#         for i in range (0, len(braces_mark)):
+#             target=string[braces_mark[i][0]+1:braces_mark[i][1]][::-1]
+#             transform_string=""
+#             print(target,"target")
+#             useFlag=0
+#             for j in range (0, len(target)):
+#                 if target[j].isdigit():
+#                     transform_string += target[j+1] + str(int(target[j])*int(braces_mark[i][2]))
+#                     useFlag = 1
+#                 elif useFlag == 1:
+#                     useFlag = 0
+#                 elif useFlag == 0:
+#                     # print(target[j])
+#                     transform_string += target[j]+ str(braces_mark[i][2])
+                
+#                 print(transform_string,"transform string")
+     
+#             string = string[0:braces_mark[i][0]] + transform_string + string[braces_mark[i][1]+2:]
+#             braces_mark=[]
+#     print(string,"string1")
+# #step2
+#     for i in range (0, len(string)):
+#         if string[i] == "[":
+#             braces_mark.append([i])
+#         if string[i] == "]":
+#             num=""
+#             p = i
+#             braces_mark[len(braces_mark)-1].append(i)
+#             for p in range(p+1, len(formula)):
+#                 if formula[p].isdigit():
+#                     num += formula[p]
+#                 else:
+#                     break
+                        
+#             braces_mark[len(braces_mark)-1].append(num)
+#     print(braces_mark,"braces_mark")
+
+#     if len(braces_mark) != 0:
+#         for i in range (0, len(braces_mark)):
+#             target=string[braces_mark[i][0]+1:braces_mark[i][1]][::-1]
+#             transform_string=""
+#             print(target,"target 2")
+#             for j in range (0, len(target)):
+#                 if target[j].isdigit():
+#                     transform_string += target[j+1] + str(int(target[j])*int(braces_mark[i][2]))
+#                 elif target[j-1].isdigit():
+#                     continue
+#                 else:
+#                     print(target[j])
+#                     transform_string += target[j] + str(braces_mark[i][2])
+#             print(transform_string,"transform_string 2")
+#             string = string[0:braces_mark[i][0]] + transform_string 
+#             braces_mark=[]
+
+
+
+#     print(string,"Final string")
+
+#     atoms={}
+#     cur=""
+#     count = ""
+#     for i in range(0, len(string)):
+#         chr = string[i]
+#         # print(chr)
+#         if i == len(string)-1 and chr.isupper()  :
+#             cur = chr
+#             if cur in atoms :
+#                     atoms[cur] = atoms[cur] + int(count or 1)
+#                     cur = chr
+#                     count = ""
+#             else:
+#                     atoms[cur] = int(count or 1)
+#                     cur = chr
+#                     count = ""
+                    
+#         if chr.isupper():
+#             if  cur == "" :
+#                 cur = chr
+#                 if i == 0 :
+#                     if cur in atoms :
+#                         atoms[cur] = atoms[cur] + int(count or 1) 
+#                         cur = chr
+#                         count = ""
+#                     else:
+#                         atoms[cur] = int(count or 1)
+#                         cur = chr
+#                         count = ""
+
+#             else:
+#                 if cur in atoms :
+#                     atoms[cur] = atoms[cur] + int(count or 1) 
+#                     cur = chr
+#                     count = ""
+#                 else:
+#                     atoms[cur] = int(count or 1)
+#                     cur = chr
+#                     count = ""
+#         elif chr.islower():
+#             cur += chr
+#             # if cur in atoms :
+#             #     atoms[cur] += count
+#             #     cur = ""
+#             # else:
+#             #     atoms[cur] = count
+#             #     cur = ""
+#         elif chr.isdigit():
+#             count += chr
+#             if i == len(string)-1 :
+#                 if cur in atoms :
+#                     atoms[cur] = atoms[cur] + int(chr)
+#                 else:
+#                     atoms[cur] = int(chr)
+     
+
+#     print(atoms)
         
-        
+
+
+
+
 
 ################################################################
 # def parse_molecule (formula):
@@ -205,28 +400,3 @@ def parse_molecule (formula):
 #     return atoms
 
 
-# parse_molecule("H2O")#, {'H': 2, 'O' : 1}, "Should parse water")
-#parse_molecule("Mg(OH)2")#, {'Mg': 1, 'O' : 2, 'H': 2}, "Should parse magnesium hydroxide: Mg(OH)2")
-parse_molecule("K4[ON(SO3)2]2")#, {'K': 4,  'O': 14,  'N': 2,  'S': 4}, "Should parse Fremy's salt: K4[ON(SO3)2]2")
-
-#parse_molecule("(C5H5)Fe(CO)2CH3")#{'C': 8, 'H': 8, 'Fe': 1, 'O': 2}
-# parse_molecule("C6H12O6")#{'C': 6, 'H': 12, 'O': 6}
-# parse_molecule("Pd[P(C6H5)3]4")
-
-'''
-For a given chemical formula represented by a string, count the number of atoms of each element contained in the molecule and return an object (associative array in PHP, Dictionary<string, int> in C#, Map<String,Integer> in Java).
-
-For example:
-
-water = 'H2O'
-parse_molecule(water)                 # return {H: 2, O: 1}
-
-magnesium_hydroxide = 'Mg(OH)2'
-parse_molecule(magnesium_hydroxide)   # return {Mg: 1, O: 2, H: 2}
-
-var fremy_salt = 'K4[ON(SO3)2]2'
-parse_molecule(fremySalt)             # return {K: 4, O: 14, N: 2, S: 4}
-As you can see, some formulas have brackets in them. The index outside the brackets tells you that you have to multiply count of each atom inside the bracket on this index. For example, in Fe(NO3)2 you have one iron atom, two nitrogen atoms and six oxygen atoms.
-
-Note that brackets may be round, square or curly and can also be nested. Index after the braces is optional.
-'''
