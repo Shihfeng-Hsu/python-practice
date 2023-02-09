@@ -112,6 +112,8 @@ def parse_molecule (formula):
     print(atoms)
     return atoms
 
+#Shit... I spent a week trying to figure out how to get the right answer.
+
 
 '''
 # Other solution 
