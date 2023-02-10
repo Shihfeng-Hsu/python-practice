@@ -40,6 +40,26 @@ def sum_strings(x, y):
 
 
 
+'''
+# Another solution
+# By using the decimal function, the counting speed can be easily increased. 
+
+from decimal import *
+
+setcontext(Context(prec=MAX_PREC, Emax=MAX_EMAX, Emin=MIN_EMIN))
+int = Decimal
+def sum_strings(x, y):
+    if not x:
+        x = '0'
+    if not y:
+        y = '0'
+    x = int(x) + int(y)
+    
+    return str(x)
+
+'''
+
+
 sum_strings("1", "1")#, "2")
 sum_strings("123", "456")#, "579")
 
