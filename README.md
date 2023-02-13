@@ -1,4 +1,3 @@
 ### python-practice
 
-
-###https://www.codewars.com/users/shihfeng.hsu/badges/large
+![image](https://www.codewars.com/users/shihfeng.hsu/badges/large)
